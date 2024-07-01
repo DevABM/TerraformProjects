@@ -1,0 +1,17 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Terraform Dev Container",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
+  "features": {
+    "terraform": "latest"
+  },
+  "postCreateCommand": "terraform --version",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform"
+      ]
+    }
+  }
+}
+
