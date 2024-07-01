@@ -1,10 +1,11 @@
 // .devcontainer/devcontainer.json
+
 {
   "name": "Terraform Dev Container",
-  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
-  "features": {
-    "terraform": "latest"
+  "build": {
+    "dockerfile": "Dockerfile"
   },
+
   "postCreateCommand": "terraform --version",
   "customizations": {
     "vscode": {
