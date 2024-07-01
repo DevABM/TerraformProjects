@@ -1,18 +1,13 @@
 # .devcontainer/Dockerfile
 FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu:20.04
 
-# Install necessary dependencies
-RUN apt-get update && apt-get install -y \
-    curl \
-    gnupg \
-    lsb-release \
-    software-properties-common
 
-# Install Terraform
-RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
-    apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-    apt-get update && apt-get install -y terraform
-
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends rcm \
+    && curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/hashicorp.list \
+    && apt update \
+    && apt -y install --no-install-recommends terraform
 # Verify installation
 RUN terraform --version
 
