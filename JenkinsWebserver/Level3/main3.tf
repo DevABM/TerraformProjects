@@ -34,14 +34,14 @@ resource "aws_security_group" "jenkins_sg" {
 }
 
 # EC2 instance for Jenkins
-resource "aws_instance" "jenkins" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-  key_name      = var.key_name
-  iam_instance_profile = aws_iam_role.test_role_for_S3.name
+resource "aws_instance" "jenkins_server" {
+  ami                  = var.ami_id
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+# iam_instance_profile = aws_iam_role.test_role_for_S3.name
 
 
-  user_data = file("jenkins.sh")
+  #  user_data = file("jenkins.sh")
   tags = {
     Name = "jenkins_server"
   }
@@ -133,7 +133,7 @@ resource "aws_iam_instance_profile" "s3-jenkins-profile" {
 }
 
 output "jenkins_public_ip" {
-  value = aws_instance.jenkins.public_ip
+  value = aws_instance.jenkins_server.public_ip
 }
 
 output "s3_bucket_name" {
